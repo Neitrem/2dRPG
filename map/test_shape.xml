@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.9" tiledversion="1.9.1" orientation="orthogonal" renderorder="right-down" width="10" height="10" tilewidth="32" tileheight="32" infinite="0" nextlayerid="5" nextobjectid="2">
+ <tileset firstgid="1" source="Tiles-SandstoneDungeons.tsx"/>
+ <tileset firstgid="64" source="greenknight1.tsx"/>
+ <tileset firstgid="65" source="Tiles-Door-packs.tsx"/>
+ <layer id="1" name="wals" width="10" height="10">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,
+0,0,0,19,0,0,21,0,0,0,
+0,0,0,19,0,0,21,0,0,0,
+0,0,20,20,0,0,20,20,0,0,
+0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <layer id="4" name="floor" width="10" height="10">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,3,3,0,0,0,0,
+0,0,0,0,3,3,0,0,0,0,
+0,0,0,0,3,3,0,0,0,0,
+0,0,3,3,3,3,3,3,0,0,
+0,0,3,3,3,3,3,3,0,0,
+0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <objectgroup id="2" name="characters">
+  <object id="1" name="player" gid="64" x="141.432" y="178.814" width="32" height="32"/>
+ </objectgroup>
+ <layer id="3" name="gates" width="10" height="10">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,70,71,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+</map>

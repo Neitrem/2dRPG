@@ -1,0 +1,71 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "",
+    "expandedProjectPaths": [
+        "."
+    ],
+    "file.lastUsedOpenFilter": "Все файлы (*)",
+    "fileStates": {
+        "Character_001.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "Character_006.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "Characters-part-1.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "Tiles-SandstoneDungeons.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "player.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "test_tiles.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "trial_map.tmx": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 135,
+                "y": 143.5
+            }
+        }
+    },
+    "last.externalTilesetPath": "C:/Users/Андрей/OneDrive/Desktop/IT/C++PIZDEC/ProjectPIZDEC",
+    "last.imagePath": "C:/Users/Андрей/OneDrive/Desktop/IT/C++PIZDEC/Sprites",
+    "map.height": 30,
+    "map.lastUsedFormat": "tmx",
+    "map.width": 30,
+    "openFiles": [
+    ],
+    "project": "безымянный.tiled-project",
+    "recentFiles": [
+        "Tiles-SandstoneDungeons.tsx",
+        "Characters-part-1.tsx",
+        "trial_map.tmx",
+        "Character_006.tsx",
+        "player.tsx",
+        "test_tiles.tsx",
+        "Character_001.tsx"
+    ],
+    "tileset.lastUsedFilter": "Файлы набора тайлов Tiled (*.tsx *.xml)",
+    "tileset.lastUsedFormat": "tsx",
+    "tileset.margin": 0,
+    "tileset.spacing": 0,
+    "tileset.tileSize": {
+        "height": 32,
+        "width": 32
+    },
+    "tileset.useTransparentColor": true
+}
