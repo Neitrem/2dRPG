@@ -119,7 +119,7 @@ public:
 	void Reset(const b2Vec2& position);
 
 	///
-	void Draw(b2Draw* draw) const;
+	void drawUncollidedTiles(b2Draw* draw) const;
 
 private:
 

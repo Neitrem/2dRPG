@@ -153,7 +153,7 @@ public:
 	void Dump() override;
 
 	///
-	void Draw(b2Draw* draw) const override;
+	void drawUncollidedTiles(b2Draw* draw) const override;
 
 protected:
 	friend class b2Joint;

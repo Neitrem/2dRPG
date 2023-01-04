@@ -148,10 +148,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="game.cpp" />
-    <ClCompile Include="level.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="player.cpp" />
+    <ClCompile Include="src\Character.cpp" />
+    <ClCompile Include="src\MoveVector.cpp" />
+    <ClCompile Include="src\game.cpp" />
+    <ClCompile Include="src\HitboxSprite.cpp" />
+    <ClCompile Include="src\level.cpp" />
+    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\CharacterSprite.cpp" />
+    <ClCompile Include="src\TriggerRectangleShape.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="box2d\b2_api.h" />
@@ -194,14 +198,18 @@
     <ClInclude Include="box2d\b2_world.h" />
     <ClInclude Include="box2d\b2_world_callbacks.h" />
     <ClInclude Include="box2d\box2d.h" />
-    <ClInclude Include="libs.h" />
-    <ClInclude Include="level.h" />
-    <ClInclude Include="game.h" />
-    <ClInclude Include="player.h" />
+    <ClInclude Include="src\Character.h" />
+    <ClInclude Include="src\MoveVector.h" />
+    <ClInclude Include="src\HitboxSprite.h" />
+    <ClInclude Include="src\libs.h" />
+    <ClInclude Include="src\level.h" />
+    <ClInclude Include="src\game.h" />
+    <ClInclude Include="src\CharacterSprite.h" />
     <ClInclude Include="rapidxml.hpp" />
     <ClInclude Include="rapidxml_iterators.hpp" />
     <ClInclude Include="rapidxml_print.hpp" />
     <ClInclude Include="rapidxml_utils.hpp" />
+    <ClInclude Include="src\TriggerRectangleShape.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="sfml-graphics-d-2.dll" />

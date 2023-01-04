@@ -154,7 +154,7 @@ public:
 	virtual void ShiftOrigin(const b2Vec2& newOrigin) { B2_NOT_USED(newOrigin);  }
 
 	/// Debug draw this joint
-	virtual void Draw(b2Draw* draw) const;
+	virtual void drawUncollidedTiles(b2Draw* draw) const;
 
 protected:
 	friend class b2World;
