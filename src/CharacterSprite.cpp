@@ -1,7 +1,7 @@
 #include "CharacterSprite.h"	
 
 
-void CharacterSprite::fromHitboxSprite(HitboxSprite hs)
+void CharacterSprite::generateFromHitboxSprite(HitboxSprite hs)
 {
 	this->setTexture(*(hs.getTexture()));
 	this->setTextureRect(hs.getTextureRect());

@@ -14,7 +14,7 @@ public:
 	void moveSprite(MoveVector movementVec, int speed);
 	
 	///create new object based on HitboxSprite class object
-	void fromHitboxSprite(HitboxSprite hs);
+	void generateFromHitboxSprite(HitboxSprite hs);
 	
 	//CharacterSprite();
 protected:

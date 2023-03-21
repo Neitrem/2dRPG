@@ -9,56 +9,174 @@
 
 //Level implementation
 
+/// Returns this Level Tileset : <Tileset>
 Tileset Level::getTileset()
 {
 	return this->tilesets[0];
 }
 
-void Level::pushToCollidedHitboxes(HitboxSprite& collidedHitbox)
+/// <summary>
+/// Push given link to CollidedHitbox 
+/// </summary>
+/// <param name="collidedHitbox">*MapElement</param>
+void Level::pushToCollidedHitboxes(MapElement& collidedHitbox)
 {
-	this->collidedHitboxes.push_back(&collidedHitbox);
+	this->collidedElements.push_back(&collidedHitbox);
 }
 
-void Level::pushToUpperLayer(HitboxSprite& collidedHitbox)
+/// <summary>
+/// Push given link to UpperLayer
+/// </summary>
+/// <param name="collidedHitbox">*MapElement</param>
+void Level::pushToUpperLayer(MapElement& collidedHitbox)
 {
-	this->upperLayer.push_back(&collidedHitbox);
+	this->upperElementsLayer.push_back(&collidedHitbox);
 }
 
 
-//sf::Texture* Level::getTexture(int tileGID)
-//{
-//	Tileset tempTileSet;
-//	int subRectToUse = -1, firstTileID = 0;
-//	
-//	for (Tileset tile_set : this->tilesets)
-//	{
-//		if (tile_set.firstTileID <= tileGID && tile_set.firstTileID > firstTileID)
-//		{
-//			firstTileID = tile_set.firstTileID;
-//			tempTileSet = tile_set;
-//		}
-//	}
-//
-//	subRectToUse = tileGID - tempTileSet.firstTileID;
-//	sf::Texture* newTexture;
-//	newTexture = new sf::Texture();
-//	if (subRectToUse >= 0)
-//	{
-//		newTexture->loadFromImage(*(tempTileSet.tileImage), tempTileSet.subRects[subRectToUse]);
-//
-//		return newTexture;
-//
-//		//return std::make_pair(tempTileSet.tileImage, tempTileSet.subRects[subRectToUse]);
-//	}
-//	else {
-//		std::cout << "Smthg wrong for tile with GID: " << tileGID << std::endl;
-//		//throw __std_exception_data();
-//		return newTexture;
-//
-//		//return std::make_pair(sf::Image(), sf::Rect<int>());
-//	}
-//	
-//}
+/// <summary>
+/// Returns sf::Color based on type of Object
+/// </summary>
+/// <returns></returns>
+sf::Color generateColor(std::string type)
+{
+	if (type == "wals")
+	{
+		return sf::Color::Magenta;
+	}
+
+	if (type == "gates")
+	{
+		return sf::Color::Green;
+	}
+}
+
+/// <summary>
+/// Creates phisical object for current sprite 
+/// </summary>
+/// <param name="tiles_map"></param>
+/// <param name="mapElement"></param>
+void Level::generatePhysicalShape(std::map<sf::String, int> tiles_map, MapElement &mapElement)
+{
+	const int OFFSET = 12;
+
+	int offset = !tiles_map["upper_tile"] ? OFFSET : 0;
+
+
+	sf::RectangleShape newShape;
+
+	HitboxSprite hitboxSprite = mapElement.getVisionHitboxSprite();
+	
+	sf::FloatRect visionSpriteHitbox = hitboxSprite.getHitbox();
+	sf::Vector2f visionSpritePosition = hitboxSprite.getPosition();
+
+
+	int posX = visionSpritePosition.x;
+	float width = visionSpriteHitbox.width;
+
+	int posY = visionSpritePosition.y + offset;
+	float height = visionSpriteHitbox.height - offset;
+
+
+	newShape.setPosition(posX, posY);
+	newShape.setSize({ width, height });
+
+
+	sf::Color color = generateColor(hitboxSprite.getType());
+	newShape.setFillColor(color);
+
+	mapElement.setPhysicalShape(newShape);
+
+
+
+
+
+	//if (!tiles_map["bottom_tile"])
+	//{
+	//	//std::cout << "Bottom line" << tiles_map["bottom_tile"] << std::endl;;
+	//	sf::RectangleShape newShape;
+
+	//	sf::Vector2f spritePosition = mapElement.hitboxSprite.getPosition();
+
+	//	
+	//	newShape.setPosition(spritePosition.x, spritePosition.y + this->tileHeight);
+	//	newShape.setSize({ float(this->tileWidth), 1 });
+
+	//	newShape.setFillColor(generateColor(mapElement.hitboxSprite.getType()));
+
+	//	mapElement.shapes_map["bottom_shape"] = newShape;
+	//}
+	//if (!tiles_map["right_tile"])
+	//{
+	//	//std::cout << "Left line" << tiles_map["right_tile"] << std::endl;
+	//	sf::RectangleShape newShape;
+
+	//	sf::Vector2f spritePosition = mapElement.hitboxSprite.getPosition();
+
+	//	newShape.setPosition(spritePosition.x + this->tileWidth, spritePosition.y);
+	//	newShape.setSize({ 1, float(this->tileWidth) + 1 });
+	//	if (!tiles_map["upper_tile"])
+	//	{
+	//		newShape.setPosition(spritePosition.x + this->tileWidth, spritePosition.y + offset);
+	//		newShape.setSize({ 1, float(this->tileWidth) - offset + 1 });
+	//	}
+	//	if (tiles_map["bottom_tile"])
+	//	{
+	//		newShape.setSize({ 1, float(this->tileWidth) + offset + 1 });
+	//	}
+	//	//std::cout << this->tileWidth << std::endl;
+
+	//	newShape.setFillColor(generateColor(mapElement.hitboxSprite.getType()));
+
+	//	
+
+
+	//	mapElement.shapes_map["right_shape"] = newShape;
+	//}
+	//if (!tiles_map["upper_tile"])
+	//{
+	//	//std::cout << "Left line" << tiles_map["right_tile"] << std::endl;
+	//	sf::RectangleShape newShape;
+
+	//	sf::Vector2f spritePosition = mapElement.hitboxSprite.getPosition();
+
+	//	newShape.setPosition(spritePosition.x, spritePosition.y + offset);
+	//	newShape.setSize({ float(this->tileWidth), 1 });
+
+	//	//std::cout << this->tileWidth << std::endl;
+
+	//	newShape.setFillColor(generateColor(mapElement.hitboxSprite.getType()));
+
+	//	
+
+
+	//	mapElement.shapes_map["upper_shape"] = newShape;
+	//}
+	//if (!tiles_map["left_tile"])
+	//{
+	//	//std::cout << "Left line" << tiles_map["right_tile"] << std::endl;
+	//	sf::RectangleShape newShape;
+
+	//	sf::Vector2f spritePosition = mapElement.hitboxSprite.getPosition();
+
+	//	newShape.setPosition(spritePosition.x, spritePosition.y + offset);
+	//	newShape.setSize({ 1, float(this->tileWidth) });
+	//	if (!tiles_map["bottom_tile"])
+	//	{
+	//		newShape.setSize({ 1, float(this->tileWidth) - offset});
+	//	}
+
+	//	//std::cout << this->tileWidth << std::endl;
+
+	//	newShape.setFillColor(generateColor(mapElement.hitboxSprite.getType()));
+
+	//	
+
+
+	//	mapElement.shapes_map["left_shape"] = newShape;
+	//}
+
+}
 
 HitboxSprite Level::getCurrentSprite(int tileGID)
 {
@@ -122,48 +240,108 @@ bool Level::loadMap(rapidxml::xml_node<char>* map)
 		int x = 0;
 		int y = 0;
 
+		std::vector<std::vector<int>> layerMatrics;
+
+		std::vector<int> tempRowString;
+
 		while (std::getline(dataLine, cell, ','))
 		{
 			int spriteGID = atoi(cell.c_str());
 
-			if (spriteGID > 0)
-			{
+			tempRowString.push_back(spriteGID);
 
-				//sf::Texture texture = getTexture(spriteGID);
-
-				HitboxSprite sprite = getCurrentSprite(spriteGID);
-				//sf::Texture* texture;
-
-				//texture = getTexture(spriteGID);
-				//std::cout<<texture.loadFromImage(getTexture(spriteGID).first, getTexture(spriteGID).second)<<std::endl;
-				if (sprite.getTexture()->getSize().x > 0)
-				{
-					
-
-					//sprite->setTexture(*texture);
-
-					sprite.setType(layer.name);
-
-					sprite.setPosition(x * tileWidth, y * tileHeight);
-
-					sprite.setColor(sf::Color(255, 255, 255, layer.opacity));
-
-					sprite.setHitbox({ 0, 0, 32, 32 });
-
-					//std::cout << sprite.getType() << std::endl;
-
-					layer.tiles.push_back(sprite);
-				}
-			}
 			x++;
 			if (x >= width)
 			{
 				x = 0;
-				y++;
-				if (y >= height)
-					y = 0;
-			}
 
+				for (auto iter = tempRowString.begin(); iter < tempRowString.end(); ++iter)
+				{
+					printf("%-4d", *iter);
+				}
+
+				//std::copy(tempRowString.begin(), tempRowString.end(), std::ostream_iterator<int>(std::cout, "  "));
+
+				std::cout << std::endl;
+
+				//std::cout << tempMapString << std::endl;
+
+				layerMatrics.push_back(tempRowString);
+
+				tempRowString.clear();
+
+				y++;
+					
+			}
+			
+		}
+		std::cout << std::endl << std::endl;
+
+		x = 0;
+		y = 0;
+
+		for (auto string_iter = layerMatrics.begin(); string_iter < layerMatrics.end(); ++string_iter)
+		{
+
+			for (auto tile_iter = string_iter->begin(); tile_iter < string_iter->end(); ++tile_iter)
+			{
+				int spriteGID = *tile_iter;
+
+				if (spriteGID > 0)
+				{
+					HitboxSprite sprite = getCurrentSprite(spriteGID);
+
+					if (sprite.getTexture()->getSize().x > 0)
+					{
+
+						sprite.setType(layer.name);
+
+						sprite.setPosition(x * tileWidth, y * tileHeight);
+
+						sprite.setColor(sf::Color(255, 255, 255, layer.opacity));
+
+						sprite.setHitbox({ 0, 0, 32, 32 });
+
+
+						MapElement newMapElement;
+
+						newMapElement.setVisionHitboxSprite(sprite);
+
+						std::map<sf::String, int> tiles_map = {
+							{ "upper_tile", y > 0 ? *(((string_iter - 1)->begin()) + x) : 0}, // Check if it isn't first string and if not then put current value in var
+							{ "right_tile", x < this->width ? *(tile_iter + 1) : 0}, // Check if it isn't last tile in a row and if not then put current value in var
+							{ "left_tile", x > 0 ? *(tile_iter - 1) : 0}, // Check if it isn't first tile in a row and if not then put current value in var
+							{ "bottom_tile", y < this->height ? *(((string_iter + 1)->begin()) + x) : 0}, // Chaeck if it isn't last string an if not then put current value in var
+						};
+
+						if (layer.name != "floor")
+						{
+							this->generatePhysicalShape(tiles_map, newMapElement);
+						}
+
+
+						
+
+						//std::cout << newMapElement.physicalShape.getSize().x << std::endl;
+
+						layer.tiles.push_back(newMapElement);
+					}
+				}
+
+
+				x++;
+				if (x >= width)
+				{
+					x = 0;
+					y++;
+					if (y >= height)
+						y = 0;
+				}
+			}
+			
+
+			
+			
 		}
 		this->layers.push_back(layer);
 
@@ -326,7 +504,7 @@ bool Level::loadObjects(rapidxml::xml_node<char>* map)
 				//std::cout << texture.loadFromImage(getTexture(spriteGID).first, getTexture(spriteGID).second) << std::endl;
 
 				CharacterSprite newCharacterSprite;
-				newCharacterSprite.fromHitboxSprite((getCurrentSprite(spriteGID)));
+				newCharacterSprite.generateFromHitboxSprite((getCurrentSprite(spriteGID)));
 
 				if (newCharacterSprite.getTexture()->getSize().x > 0)
 				{
@@ -453,26 +631,47 @@ void Level::drawUncollidedTiles(sf::RenderWindow* window)
 		//std::cout << "Displayed" << std::endl;
 		for (auto tile_ptr = std::begin(layer.tiles); tile_ptr != std::end(layer.tiles); ++tile_ptr)
 		{
-			
-			if((!tile_ptr->isUpper) || tile_ptr->getType() == "floor")
-				
-				window->draw(*tile_ptr);
+			HitboxSprite tileHitboxSprite = tile_ptr->getVisionHitboxSprite();
+
+			if ((!tileHitboxSprite.isUpper) || tileHitboxSprite.getType() == "floor")
+			{
+				window->draw(tileHitboxSprite);
+			}	
+		}
+	}
+}
+
+void Level::drawPhysicsBounds(sf::RenderWindow* window)
+{
+	for (Layer layer : this->layers)
+	{
+		//std::cout << "Displayed" << std::endl;
+		for (auto tile_ptr = std::begin(layer.tiles); tile_ptr != std::end(layer.tiles); ++tile_ptr)
+		{
+			HitboxSprite tileVisionSprite = tile_ptr->getVisionHitboxSprite();
+
+			if (tileVisionSprite.getType() != "floor")
+			{
+				window->draw(tile_ptr->getPhysicalShape());
+			}
 		}
 	}
 }
 
 void Level::drawUpperLayer(sf::RenderWindow* window)
 {
-	for (std::vector<HitboxSprite*>::iterator tile_ptr = std::begin(this->upperLayer); tile_ptr != std::end(this->upperLayer); )
-	{	
+	for (std::vector<MapElement*>::iterator tile_ptr = std::begin(this->upperElementsLayer); tile_ptr != std::end(this->upperElementsLayer); )
+	{
+		HitboxSprite tileVisionSprite = (*tile_ptr)->getVisionHitboxSprite();
+
 		//std::cout << "draw upper" << std::endl;
-		if ((*tile_ptr)->isCollided && (*tile_ptr)->isUpper)
+		if (tileVisionSprite.isCollided && tileVisionSprite.isUpper)
 		{
-			window->draw(*(*tile_ptr));
+			window->draw(tileVisionSprite);
 			++tile_ptr;
 		}
 		else
-			tile_ptr = this->upperLayer.erase(tile_ptr);
+			tile_ptr = this->upperElementsLayer.erase(tile_ptr);
 		
 	}
 	//this->flushCollidedHitboxes();

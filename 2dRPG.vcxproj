@@ -117,14 +117,14 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\Андрей\OneDrive\Desktop\IT\C++PIZDEC\Box2D;%(AdditionalIncludeDirectories);C:\Users\Андрей\OneDrive\Desktop\IT\C++PIZDEC\SFML-2.5.1\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);C:\Users\Андрей\Desktop\IT\C++PIZDEC\SFML-2.5.1\include</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>sfml-system-d.lib;box2d.lib;glad.lib;glfw.lib;imgui.lib;sajson.lib;sfml-window-d.lib;sfml-graphics-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:\Users\Андрей\OneDrive\Desktop\IT\C++PIZDEC\Box2D;C:\Users\Андрей\OneDrive\Desktop\IT\C++PIZDEC\SFML-2.5.1\lib;C:\Users\Андрей\OneDrive\Desktop\IT\C++PIZDEC\rapidXML\rapidxml-1.13;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>sfml-system-d.lib;sfml-window-d.lib;sfml-graphics-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Users\Андрей\Desktop\IT\C++PIZDEC\SFML-2.5.1\lib;C:\Users\Андрей\Desktop\IT\C++PIZDEC\rapidXML\rapidxml-1.13;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -149,6 +149,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\Character.cpp" />
+    <ClCompile Include="src\MapElement.cpp" />
     <ClCompile Include="src\MoveVector.cpp" />
     <ClCompile Include="src\game.cpp" />
     <ClCompile Include="src\HitboxSprite.cpp" />
@@ -199,6 +200,7 @@
     <ClInclude Include="box2d\b2_world_callbacks.h" />
     <ClInclude Include="box2d\box2d.h" />
     <ClInclude Include="src\Character.h" />
+    <ClInclude Include="src\MapElement.h" />
     <ClInclude Include="src\MoveVector.h" />
     <ClInclude Include="src\HitboxSprite.h" />
     <ClInclude Include="src\libs.h" />

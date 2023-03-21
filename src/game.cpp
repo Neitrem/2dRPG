@@ -9,49 +9,61 @@ Game::Game()
 void Game::checkColision()
 {
 	std::pair<std::vector<Layer>::iterator, std::vector<Layer>::iterator> layersPtr = this->level.GetAllLayers();
+
+	HitboxSprite* playerCollider = &(this->player.characterSprite);
+	sf::FloatRect characterGlobalHitbox = playerCollider->getGlobalHitbox();
+
 	for (auto layer_ptr = layersPtr.first; layer_ptr != layersPtr.second; ++layer_ptr)
 	{
 		for (auto tile_ptr = std::begin(layer_ptr->tiles); tile_ptr != std::end(layer_ptr->tiles); ++tile_ptr)
 		{
-			const bool colliding = this->player.characterSprite.getGlobalHitbox().intersects(tile_ptr->getGlobalHitbox());
+
+			HitboxSprite tileHitboxSprite = tile_ptr->getVisionHitboxSprite();
+
+			sf::FloatRect tileGlobalHitbox = tileHitboxSprite.getGlobalHitbox();
+
+			const bool colliding = characterGlobalHitbox.intersects(tileGlobalHitbox);
+
 			if (colliding)
 			{
-				if (!tile_ptr->isCollided)
+				if (!tileHitboxSprite.isCollided)
 				{
 					//std::cout << tile_ptr->getType() << std::endl;
-					tile_ptr->isCollided = true;
+					tileHitboxSprite.isCollided = true;
 
-					tile_ptr->setColor(sf::Color::Red);
+					tileHitboxSprite.setColor(sf::Color::Red);
 
-					if (tile_ptr->getType() != "floor")
+					if (tileHitboxSprite.getType() != "floor")
 					{
-						this->level.pushToCollidedHitboxes(*tile_ptr);
+						//this->level.pushToCollidedHitboxes(*tile_ptr);
 
-						if (this->player.characterSprite.isHigher(*tile_ptr))
+						if (playerCollider->isHigher(tileHitboxSprite))
 						{
 							std::cout << "upper" << std::endl;
-							tile_ptr->isUpper = true;
+							tileHitboxSprite.isUpper = true;
 							this->level.pushToUpperLayer(*tile_ptr);
 						}
 					}
 				}
 				else
 				{
-					if (tile_ptr->getType() != "floor")
+					if (tileHitboxSprite.getType() != "floor")
 					{
-						if (!this->player.characterSprite.isHigher(*tile_ptr))
+						if (!playerCollider->isHigher(tileHitboxSprite))
 						{
-							tile_ptr->isUpper = false;
+							tileHitboxSprite.isUpper = false;
 						}
 					}
 				}
 			}
-			else if(tile_ptr->isCollided)
+			else if(tileHitboxSprite.isCollided)
 			{
-				tile_ptr->isUpper = false;
-				tile_ptr->isCollided = false;
-				tile_ptr->setColor(sf::Color(255, 255, 255)); 
+				tileHitboxSprite.isUpper = false;
+				tileHitboxSprite.isCollided = false;
+				tileHitboxSprite.setColor(sf::Color(255, 255, 255));
 			}
+
+			tile_ptr->setVisionHitboxSprite(tileHitboxSprite);
 		}
 	}
 }
@@ -200,18 +212,19 @@ void Game::startRender()
 
 		this->renderWindow.clear();
 
+
 		this->level.drawUncollidedTiles(&(this->renderWindow));
-		
+
 
 		this->renderWindow.draw(this->player.characterSprite);
-
 		
 
-		this->renderWindow.draw(this->player.getMoveBox());
-
-		this->renderWindow.draw(this->player.getSensorBox());
 
 		this->level.drawUpperLayer(&(this->renderWindow));
+
+		this->level.drawPhysicsBounds(&(this->renderWindow));
+		this->renderWindow.draw(this->player.getMoveBox());
+		this->renderWindow.draw(this->player.getSensorBox());
 
 		this->renderWindow.display();
 

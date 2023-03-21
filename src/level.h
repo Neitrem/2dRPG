@@ -2,14 +2,14 @@
 #define LEVEL_H
 
 #include "libs.h"
-
+#include "MapElement.h"
 #include "Character.h"
 
 struct Layer
 {
 	int opacity;
 	std::string name;
-	std::vector<HitboxSprite> tiles;
+	std::vector<MapElement> tiles;
 };
 	
 struct Tileset
@@ -29,6 +29,9 @@ public:
 
 	void drawUncollidedTiles(sf::RenderWindow* window);
 	void drawUpperLayer(sf::RenderWindow* window);
+	void drawPhysicsBounds(sf::RenderWindow* window);
+
+
 	sf::Vector2i GetTileSize();
 
 	HitboxSprite getCurrentSprite(int tileGID);
@@ -40,10 +43,10 @@ public:
 	std::optional<Layer> GetLayer(std::string layerName);
 	std::pair<std::vector<Layer>::iterator, std::vector<Layer>::iterator> GetAllLayers();
 
-	void pushToCollidedHitboxes(HitboxSprite& collidedHitbox);
+	void pushToCollidedHitboxes(MapElement& collidedElement);
 	//void popFromCollidedHitboxes(std::vector <HitboxSprite>);
 
-	void pushToUpperLayer(HitboxSprite& collidedHitBox);
+	void pushToUpperLayer(MapElement& collidedElement);
 
 	Character getPlayer();
 
@@ -57,15 +60,18 @@ private:
 
 	std::vector<Character> dynamicSprites;
 
-	std::vector<HitboxSprite*> collidedHitboxes;
+	std::vector<MapElement*> collidedElements;
 
-	std::vector<HitboxSprite*> upperLayer;
+	std::vector<MapElement*> upperElementsLayer;
 
 	bool loadTilesets(rapidxml::xml_node<char>* map);
 	bool loadMap(rapidxml::xml_node<char>* map);
 	bool loadObjects(rapidxml::xml_node<char>* map);
+
+	/// Create some sf::RectangleShape that will use as physycal object for MapElement
+	void generatePhysicalShape(std::map<sf::String, int> tiles_map, MapElement &mapElement);
 	
 };
 
 
-#endif
+#endif&
